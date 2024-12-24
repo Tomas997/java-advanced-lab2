@@ -34,17 +34,17 @@ class Serializer {
      * @throws IllegalAccessException у випадку відсутності доступу до поля
      */
     public static String toXml(Object obj) throws IllegalAccessException {
-        StringBuilder xml = new StringBuilder("<object>\n");
         Class<?> clazz = obj.getClass();
+        StringBuilder xml = new StringBuilder("<"+clazz.getSimpleName()+">\n");
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(XmlElement.class)) {
                 field.setAccessible(true);
                 String key = field.getAnnotation(XmlElement.class).key();
-                xml.append(String.format("  <%s>%s</%s>\n",
+                xml.append(String.format("  <%s>%s</%s>%n",
                         key.isEmpty() ? field.getName() : key, field.get(obj), key.isEmpty() ? field.getName() : key));
             }
         }
-        xml.append("</object>");
+        xml.append("</"+clazz.getSimpleName()+">");
         return xml.toString();
     }
 }

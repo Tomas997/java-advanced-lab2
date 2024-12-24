@@ -30,6 +30,6 @@ class Vehicle {
      * @return XML представлення об'єкта
      */
     public String toXmlManual() {
-        return String.format("<object>\n  <model>%s</model>\n  <year>%d</year>\n</object>", model, year);
+        return String.format("<Vehicle>\n  <model>%s</model>\n  <year>%d</year>\n</Vehicle>", model, year);
     }
 }
